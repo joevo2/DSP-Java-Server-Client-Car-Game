@@ -1,9 +1,12 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.*;
 
-public class LogoAnimatorJPanel extends JPanel{
+public class LogoAnimatorJPanel extends JPanel implements KeyListener{
 	//protected ImageIcon images[]; // array of images
 	protected ImageIcon images[];
 	private int currentImage = 0; // current image index
@@ -12,6 +15,9 @@ public class LogoAnimatorJPanel extends JPanel{
 	private int height = 650; // image height
 	private Timer animationTimer; // Timer drives animation 23
 	// constructor initializes LogoAnimatorJPanel by loading images
+	private int x = 425;
+	private int y = 500;
+			
 	
 	public LogoAnimatorJPanel() {
 	 try {
@@ -50,7 +56,7 @@ public class LogoAnimatorJPanel extends JPanel{
 	     g.drawLine( 425, 500, 425, 600 ); // start line
 
 	
-		 images[ currentImage ].paintIcon( this, g, 425, 500 );
+		 images[ currentImage ].paintIcon( this, g, x, y );
 		 // set next image to be drawn only if Timer is running
 		 if ( animationTimer.isRunning() )
 			 currentImage = ( currentImage + 1 ) % images.length;
@@ -83,8 +89,44 @@ public class LogoAnimatorJPanel extends JPanel{
 	 }
 	 
 	 private class TimerHandler implements ActionListener {
-		 public void actionPerformed( ActionEvent actionEvent) {
+		 public void actionPerformed( ActionEvent actionEvent) { 
 			 repaint();
 		 }
 	 }
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		//System.out.println("Key pressed code=" + e.getKeyCode() + ", char=" + e.getKeyChar());	
+		switch(e.getKeyCode()) {
+	    	case 37:
+	    		System.out.println("LEFT");
+	    		x-=5;
+	    		break;
+	    	case 38:
+	    		System.out.println("UP");
+	    		y-=5;
+	    		break;
+	    	case 39:
+	    		System.out.println("RIGHT");
+	    		x+=5;
+	    		break;
+	    	case 40:
+	    		System.out.println("DOWN");
+	    		y+=5;
+	    		break;		
+	    }
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }
